@@ -1,0 +1,166 @@
+[gd_scene load_steps=9 format=3 uid="uid://d1e2f3g4h5i6"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_j2k3l"]
+[ext_resource type="Texture2D" uid="uid://walk_anim_sheet" path="res://assets/walking_anim.svg" id="2_walk"]
+[ext_resource type="AudioStream" path="res://assets/sounds/mining.mp3" id="3_mine_snd"]
+[ext_resource type="AudioStream" path="res://assets/sounds/running.mp3" id="4_run_snd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2c3d"]
+size = Vector2(20, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3d4e"]
+size = Vector2(24, 32)
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 0.001
+loop_mode = 0
+step = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_run"]
+resource_name = "run"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_attack"]
+resource_name = "attack"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"trigger_hitbox"
+}, {
+"args": [],
+"method": &"end_action"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_mine"]
+resource_name = "mine"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"trigger_hitbox"
+}, {
+"args": [],
+"method": &"end_action"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d4e5f"]
+_data = {
+"idle": SubResource("Animation_idle"),
+"run": SubResource("Animation_run"),
+"attack": SubResource("Animation_attack"),
+"mine": SubResource("Animation_mine")
+}
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_j2k3l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("2_walk")
+hframes = 4
+vframes = 2
+frame = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_b2c3d")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(20, 0)
+shape = SubResource("RectangleShape2D_c3d4e")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d4e5f")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="MiningSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_mine_snd")
+volume_db = 15.0
+
+[node name="RunningSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_run_snd")
+volume_db = 10.0

@@ -1,0 +1,10 @@
+<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Base Rock -->
+  <polygon points="5,35 15,15 25,10 35,25 30,38" fill="#5a5c68"/>
+  <polygon points="5,35 15,15 20,30" fill="#45474f"/>
+  <polygon points="15,15 25,10 20,30" fill="#6d6f7c"/>
+  
+  <!-- Crystals protruding -->
+  <polygon points="20,15 25,2 30,12" fill="#ffffff" opacity="0.8"/>
+  <polygon points="10,25 2,18 15,20" fill="#ffffff" opacity="0.6"/>
+</svg>

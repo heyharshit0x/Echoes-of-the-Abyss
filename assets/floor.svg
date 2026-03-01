@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="64" viewBox="0 0 128 64">
+    <!-- Base block -->
+    <rect width="128" height="64" fill="#1C1821" />
+    <!-- Top crust -->
+    <rect width="128" height="12" fill="#3D2B1F" />
+    
+    <!-- Stone details -->
+    <path d="M 10 20 L 20 15 L 30 25 L 10 30 Z" fill="#2E2833" />
+    <path d="M 60 40 L 75 30 L 90 45 L 80 55 Z" fill="#2E2833" />
+    <path d="M 100 15 L 115 10 L 120 20 L 105 25 Z" fill="#2E2833" />
+    
+    <!-- Cracks -->
+    <path d="M 40 12 L 45 25 L 35 35 L 45 45 M 85 12 L 95 25 L 80 40 L 90 60" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" />
+</svg>

@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://v2w3x4y5z6a7"]
+
+[ext_resource type="Script" path="res://scripts/mine.gd" id="1_test9"]
+[ext_resource type="PackedScene" uid="uid://d1e2f3g4h5i6" path="res://scenes/player.tscn" id="2_playr"]
+[ext_resource type="PackedScene" uid="uid://x3y4z5a6b7c8" path="res://scenes/floor.tscn" id="3_floor"]
+[ext_resource type="Texture2D" path="res://assets/cave.svg" id="7_cavebg"]
+
+[sub_resource type="Theme" id="Theme_m1n2o"]
+default_font_size = 24
+
+[node name="Mine" type="Node2D"]
+script = ExtResource("1_test9")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1536, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("7_cavebg")
+centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GoldLabel" type="Label" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 280.0
+offset_bottom = 55.0
+theme = SubResource("Theme_m1n2o")
+text = "Gold: 0 / 1000"
+
+[node name="ReturnTownButton" type="Button" parent="CanvasLayer"]
+offset_left = 640.0
+offset_top = 20.0
+offset_right = 790.0
+offset_bottom = 58.0
+text = "Return to Town"
+
+[node name="SystemMessage" type="Label" parent="CanvasLayer"]
+offset_left = 200.0
+offset_top = 260.0
+offset_right = 600.0
+offset_bottom = 310.0
+theme = SubResource("Theme_m1n2o")
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+text = ""
+horizontal_alignment = 1
+
+[node name="FloorBase" parent="." instance=ExtResource("3_floor")]
+position = Vector2(400, 664)
+scale = Vector2(400, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_playr")]
+position = Vector2(400, 500)

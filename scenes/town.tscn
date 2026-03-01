@@ -1,0 +1,115 @@
+[gd_scene load_steps=9 format=3 uid="uid://t1u2v3w4x5y6"]
+
+[ext_resource type="Script" path="res://scripts/town.gd" id="1_x9y0z"]
+[ext_resource type="Texture2D" path="res://assets/town.svg" id="2_a1b2c"]
+[ext_resource type="PackedScene" uid="uid://d4e5f6g7h8i9" path="res://scenes/blacksmith.tscn" id="3_bsm"]
+[ext_resource type="PackedScene" uid="uid://e4f5g6h7i8j9" path="res://scenes/mine_entrance.tscn" id="4_me"]
+[ext_resource type="PackedScene" uid="uid://d1e2f3g4h5i6" path="res://scenes/player.tscn" id="5_pl"]
+[ext_resource type="Texture2D" path="res://assets/completed sprites/ui_heart.svg" id="7_heart"]
+
+
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_top"]
+size = Vector2(1152, 280)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bottom"]
+size = Vector2(1152, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_left_ledge"]
+size = Vector2(380, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_right_ledge"]
+size = Vector2(380, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vert"]
+size = Vector2(40, 648)
+
+[sub_resource type="Theme" id="Theme_d3e4f"]
+default_font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5g6h"]
+bg_color = Color(0.18, 0.18, 0.24, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Town" type="Node2D"]
+script = ExtResource("1_x9y0z")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_a1b2c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bounds" type="StaticBody2D" parent="."]
+collision_layer = 1
+
+[node name="TopBlocked" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(576, 145)
+shape = SubResource("RectangleShape2D_top")
+
+[node name="BottomBlocked" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(576, 556)
+shape = SubResource("RectangleShape2D_bottom")
+
+[node name="LeftLedge" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(185, 450)
+shape = SubResource("RectangleShape2D_left_ledge")
+
+[node name="RightLedge" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(967, 450)
+shape = SubResource("RectangleShape2D_right_ledge")
+
+[node name="Left" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(-20, 324)
+shape = SubResource("RectangleShape2D_vert")
+
+[node name="Right" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(1172, 324)
+shape = SubResource("RectangleShape2D_vert")
+
+[node name="Blacksmith" parent="." instance=ExtResource("3_bsm")]
+position = Vector2(950, 320)
+
+[node name="MineEntrance" parent="." instance=ExtResource("4_me")]
+position = Vector2(576, 320)
+
+[node name="Player" parent="." instance=ExtResource("5_pl")]
+position = Vector2(576, 450)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 120.0
+theme = SubResource("Theme_d3e4f")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f5g6h")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="DataContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+
+[node name="GoldLabel" type="Label" parent="CanvasLayer/VBoxContainer/Panel/MarginContainer/DataContainer"]
+layout_mode = 2
+text = "Gold: 0"
+vertical_alignment = 1
