@@ -18,4 +18,6 @@ Collect **1000 Gold** from the mine and speak to the **Blacksmith** in town to w
 3. Once you reach 1000 gold, click "Return to Town" at the top left.
 4. Walk to the **Blacksmith** and press `Space` to complete your quest!
 
+Made in GoDot
+
 Have fun mining!
